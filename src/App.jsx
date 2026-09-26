@@ -434,7 +434,14 @@ function App() {
             >
               Services
             </a>
-
+            <a
+  href="#pricing"
+  onClick={(event) =>
+    handleNavClick(event, 'pricing')
+  }
+>
+  Pricing
+</a>
             <a
               href="#stack"
               onClick={(event) =>
@@ -845,7 +852,135 @@ function App() {
             </article>
           </div>
         </section>
+                  <section className="pricing-section" id="pricing">
+  <div className="section-header">
+    <span className="section-tag">PRICING</span>
+    <h2>Simple pricing to get started.</h2>
+    <p>
+      Choose a starting point. Final pricing depends on your business needs,
+      features, pages, and project scope.
+    </p>
+  </div>
 
+  <div className="pricing-grid">
+    <article className="pricing-card">
+      <span className="pricing-label">STARTER</span>
+
+      <h3>Starter Website</h3>
+
+      <div className="pricing-price">
+        <span>₹4,999</span>
+        <small>starting from</small>
+      </div>
+
+      <p>
+        A clean and professional website for individuals and small businesses
+        getting online.
+      </p>
+
+      <ul>
+        <li>Responsive website</li>
+        <li>Essential business sections</li>
+        <li>Contact & WhatsApp integration</li>
+        <li>Basic deployment support</li>
+      </ul>
+
+      <a
+        href="https://wa.me/919871624457?text=Hi%20K%26P%20Tech%20Solutions%2C%20I%20am%20interested%20in%20the%20Starter%20Website%20package."
+        target="_blank"
+        rel="noreferrer"
+        className="pricing-btn"
+      >
+        Discuss on WhatsApp
+      </a>
+    </article>
+
+    <article className="pricing-card pricing-card-featured">
+      <span className="pricing-label">POPULAR</span>
+
+      <h3>Business Website</h3>
+
+      <div className="pricing-price">
+        <span>₹8,999</span>
+        <small>starting from</small>
+      </div>
+
+      <p>
+        For businesses that need a stronger online presence and more
+        customization.
+      </p>
+
+      <ul>
+        <li>Custom business-focused design</li>
+        <li>Multiple sections or pages</li>
+        <li>WhatsApp & contact integration</li>
+        <li>Basic SEO setup</li>
+        <li>Deployment support</li>
+      </ul>
+
+      <a
+        href="https://wa.me/919871624457?text=Hi%20K%26P%20Tech%20Solutions%2C%20I%20am%20interested%20in%20the%20Business%20Website%20package."
+        target="_blank"
+        rel="noreferrer"
+        className="pricing-btn"
+      >
+        Discuss Your Project
+      </a>
+    </article>
+
+    <article className="pricing-card">
+      <span className="pricing-label">CUSTOM</span>
+
+      <h3>Business Plus</h3>
+
+      <div className="pricing-price">
+        <span>₹14,999+</span>
+        <small>custom scope</small>
+      </div>
+
+      <p>
+        For businesses requiring more pages, customization, integrations, or
+        advanced website features.
+      </p>
+
+      <ul>
+        <li>Custom project structure</li>
+        <li>Advanced UI requirements</li>
+        <li>Additional pages & features</li>
+        <li>Custom deployment requirements</li>
+      </ul>
+
+      <a
+        href="https://wa.me/919871624457?text=Hi%20K%26P%20Tech%20Solutions%2C%20I%20would%20like%20to%20discuss%20a%20custom%20website%20project."
+        target="_blank"
+        rel="noreferrer"
+        className="pricing-btn"
+      >
+        Request a Discussion
+      </a>
+    </article>
+  </div>
+
+  <div className="pricing-note">
+    <strong>Need something different?</strong>
+    <p>
+      Every business is different. Detailed requirements, timelines, and final
+      quotation are discussed privately over WhatsApp, call, or an online
+      meeting.
+    </p>
+  </div>
+
+  <div className="pricing-addons">
+    <span>Deployment support from ₹999</span>
+    <span>Website maintenance from ₹999/month</span>
+  </div>
+
+  <p className="pricing-disclaimer">
+    Launch pricing. Final cost may vary depending on project scope and
+    requirements. Domain, hosting, and paid third-party services are charged
+    separately where applicable.
+  </p>
+</section>
 
         {/* STACK */}
 
