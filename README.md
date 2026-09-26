@@ -1,16 +1,64 @@
-# React + Vite
+# K&P Tech Solutions
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+K&P Tech Solutions is a growing technology company focused on building practical digital solutions for modern businesses.
 
-Currently, two official plugins are available:
+We are starting with responsive business websites, deployment support, and maintenance while gradually building deeper capability in cloud, automation, DevOps, and DevSecOps.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Live Website
 
-## React Compiler
+https://kp-tech-solutions.vercel.app/
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Project Status
 
-## Expanding the Oxlint configuration
+**In Progress**
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+This website is the first real proof-of-work project for K&P Tech Solutions and serves as the digital foundation of the company.
+
+## Current Services
+
+- Website Development
+- Website Deployment
+- Website Maintenance & Support
+- Cloud & DevOps — Building Capability
+
+## Current Tech Stack
+
+- React
+- JavaScript
+- HTML
+- CSS
+- Vite
+- Git
+- GitHub
+- VS Code
+
+## Features
+
+- Modern responsive design
+- Animated hero section
+- Bento-style services section
+- Technology marquee
+- Project showcase section
+- Contact section with Email, Call, and WhatsApp
+- FAQ-based K&P Assistant
+- Smooth navigation
+- Scroll reveal animations
+- Mobile responsive navigation
+- Reduced-motion accessibility support
+
+## Current Business Direction
+
+K&P Tech Solutions is currently focused on building real skills, real projects, and practical client-ready capability.
+
+Our current approach is:
+
+**Skills → Proof of Work → First Client → Revenue → Growth**
+
+We are not presenting advanced Cloud, DevOps, or DevSecOps work as existing production expertise yet. These areas are part of our capability-building roadmap.
+
+## Development
+
+To run the project locally:
+
+```bash
+npm install
