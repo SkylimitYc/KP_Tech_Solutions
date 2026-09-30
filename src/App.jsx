@@ -1134,6 +1134,173 @@ function App() {
               </div>
             </article>
           </div>
+          <article className="project-showcase-card project-showcase-ironcore">
+
+  <div className="project-preview ironcore-preview">
+
+    <div className="project-browser-bar">
+      <div className="project-browser-dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <span>
+        iron-core-fitness-studio-demo.vercel.app
+      </span>
+    </div>
+
+    <div className="ironcore-preview-body">
+
+      <div className="ironcore-mini-nav">
+        <strong>
+          IRON<span>CORE</span>
+        </strong>
+
+        <div className="ironcore-mini-menu">
+          <i></i>
+          <i></i>
+          <i></i>
+        </div>
+      </div>
+
+      <div className="ironcore-mini-hero">
+
+        <div className="ironcore-mini-copy">
+          <span className="ironcore-mini-badge">
+            FITNESS STUDIO
+          </span>
+
+          <div className="ironcore-heading-line line-one"></div>
+          <div className="ironcore-heading-line line-two"></div>
+          <div className="ironcore-heading-line line-green"></div>
+
+          <div className="ironcore-copy-line"></div>
+          <div className="ironcore-copy-line short"></div>
+
+          <div className="ironcore-mini-actions">
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+
+        <div className="ironcore-mini-visual">
+          <div className="ironcore-glow"></div>
+
+          <div className="ironcore-logo-mark">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 64 64"
+              className="ironcore-logo-svg"
+            >
+              <rect
+                width="64"
+                height="64"
+                rx="14"
+                fill="#050505"
+              />
+
+              <circle
+                cx="32"
+                cy="32"
+                r="24"
+                fill="none"
+                stroke="#39ff14"
+                strokeWidth="3"
+              />
+
+              <text
+                x="32"
+                y="39"
+                textAnchor="middle"
+                fontFamily="Arial, sans-serif"
+                fontSize="22"
+                fontWeight="900"
+                fill="#39ff14"
+              >
+                IC
+              </text>
+            </svg>
+          </div>
+        </div>
+
+      </div>
+
+      <div className="ironcore-mini-stats">
+        <div>
+          <strong>04</strong>
+          <span>Programs</span>
+        </div>
+
+        <div>
+          <strong>03</strong>
+          <span>Plans</span>
+        </div>
+
+        <div>
+          <strong>02</strong>
+          <span>Sessions</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div className="project-details">
+
+    <div className="project-details-top">
+      <span className="project-status">
+        Concept Demo
+      </span>
+
+      <span className="project-number">
+        02
+      </span>
+    </div>
+
+    <h3>
+      IronCore Fitness Studio
+    </h3>
+
+    <p>
+      A premium fitness studio concept website built with React and Vite,
+      featuring responsive design, interactive sections, BMI calculator,
+      FAQ, form validation, animations, and optimized performance.
+    </p>
+
+    <div className="project-tags">
+      <span className="project-tag">React</span>
+      <span className="project-tag">Vite</span>
+      <span className="project-tag">JavaScript</span>
+      <span className="project-tag">Responsive Design</span>
+    </div>
+
+    <div className="project-links">
+
+      <a
+        href="https://iron-core-fitness-studio-demo.vercel.app/"
+        target="_blank"
+        rel="noreferrer"
+        className="project-live-link"
+      >
+        View Live Demo
+        <span>↗</span>
+      </a>
+
+      <a
+        href="https://github.com/SkylimitYc/IronCore_Fitness_Studio_Demo"
+        target="_blank"
+        rel="noreferrer"
+        className="project-code-link"
+      >
+        View Code
+      </a>
+
+    </div>
+
+  </div>
+
+</article>
         </section>
 
 
