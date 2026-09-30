@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+
 import {
   Code2,
   Rocket,
@@ -11,6 +12,11 @@ import {
 
 import './App.css'
 
+
+/* =========================================================
+   TECHNOLOGY STACK
+========================================================= */
+
 const stack = [
   'React',
   'JavaScript',
@@ -22,32 +28,42 @@ const stack = [
   'VS Code',
 ]
 
+
+/* =========================================================
+   FAQ ASSISTANT DATA
+========================================================= */
+
 const faqBank = [
   {
     keys: ['service', 'services', 'offer', 'website'],
     answer:
       'We currently focus on website development, basic deployment, website maintenance, and support. We are also building our Cloud and DevOps capabilities.',
   },
+
   {
     keys: ['price', 'cost', 'charge', 'budget'],
     answer:
       'Pricing depends on the scope and requirements. Contact K&P Tech Solutions and we can discuss the project before preparing a quote.',
   },
+
   {
     keys: ['time', 'long', 'deadline', 'when'],
     answer:
       'The timeline depends on website size, content, features, and revisions. We discuss the expected timeline before starting.',
   },
+
   {
     keys: ['host', 'hosting', 'server', 'deploy'],
     answer:
       'We can help with basic website deployment and hosting setup. Our advanced cloud and DevOps capability is still being developed.',
   },
+
   {
     keys: ['maintain', 'support', 'fix', 'update'],
     answer:
       'Yes. We can help with website updates, content changes, basic fixes, and ongoing maintenance.',
   },
+
   {
     keys: [
       'contact',
@@ -60,12 +76,18 @@ const faqBank = [
     answer:
       'You can contact K&P Tech Solutions using Email, Call, or WhatsApp in the Contact section.',
   },
+
   {
     keys: ['stack', 'tech', 'technology', 'build'],
     answer:
       'Our current website work uses React, JavaScript, HTML, CSS, Vite, Git, GitHub, and VS Code.',
   },
 ]
+
+
+/* =========================================================
+   FAQ ANSWER FINDER
+========================================================= */
 
 function findAnswer(input) {
   const text = input.toLowerCase()
@@ -80,6 +102,11 @@ function findAnswer(input) {
 
   return "I don't have a prepared answer for that yet. Please use the Contact section and the K&P Tech Solutions team can respond directly."
 }
+
+
+/* =========================================================
+   WEBSITE ASSISTANT
+========================================================= */
 
 function AssistantWidget() {
   const [open, setOpen] = useState(false)
@@ -101,12 +128,18 @@ function AssistantWidget() {
     'How can I contact you?',
   ]
 
+
+  /* Auto scroll assistant */
+
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop =
         scrollRef.current.scrollHeight
     }
   }, [messages, typing, open])
+
+
+  /* Process chatbot message */
 
   const processMessage = (text) => {
     const userMessage = {
@@ -136,6 +169,9 @@ function AssistantWidget() {
     }, 650)
   }
 
+
+  /* Send chatbot message */
+
   const sendMessage = (event) => {
     event.preventDefault()
 
@@ -144,24 +180,37 @@ function AssistantWidget() {
     if (!text) return
 
     processMessage(text)
+
     setDraft('')
   }
 
+
   return (
     <div className="assistant">
+
+      {/* =====================================================
+          ASSISTANT PANEL
+      ===================================================== */}
+
       {open && (
         <div
           className="assistant-panel"
           role="dialog"
           aria-label="K&P Assistant"
         >
+
+          {/* Assistant Header */}
+
           <div className="assistant-header">
+
             <div className="assistant-identity">
+
               <div className="assistant-avatar">
                 KP
               </div>
 
               <div>
+
                 <p className="assistant-title">
                   K&P Assistant
                 </p>
@@ -170,8 +219,11 @@ function AssistantWidget() {
                   <span className="assistant-online-dot" />
                   Quick website help
                 </p>
+
               </div>
+
             </div>
+
 
             <button
               type="button"
@@ -181,33 +233,50 @@ function AssistantWidget() {
             >
               ✕
             </button>
+
           </div>
+
+
+          {/* Assistant Messages */}
 
           <div
             className="assistant-body"
             ref={scrollRef}
           >
+
             {messages.map((message, index) => (
+
               <div
                 key={`${message.from}-${index}`}
                 className={`assistant-row assistant-row-${message.from}`}
               >
+
                 {message.from === 'bot' && (
+
                   <div className="assistant-mini-avatar">
                     KP
                   </div>
+
                 )}
+
 
                 <div
                   className={`assistant-msg assistant-msg-${message.from}`}
                 >
                   {message.text}
                 </div>
+
               </div>
+
             ))}
 
+
+            {/* Typing animation */}
+
             {typing && (
+
               <div className="assistant-row assistant-row-bot">
+
                 <div className="assistant-mini-avatar">
                   KP
                 </div>
@@ -217,12 +286,20 @@ function AssistantWidget() {
                   <span />
                   <span />
                 </div>
+
               </div>
+
             )}
 
+
+            {/* Quick Questions */}
+
             {messages.length === 1 && !typing && (
+
               <div className="assistant-suggestions">
+
                 {quickQuestions.map((question) => (
+
                   <button
                     type="button"
                     key={question}
@@ -232,15 +309,23 @@ function AssistantWidget() {
                   >
                     {question}
                   </button>
+
                 ))}
+
               </div>
+
             )}
+
           </div>
+
+
+          {/* Assistant Input */}
 
           <form
             className="assistant-input-row"
             onSubmit={sendMessage}
           >
+
             <input
               type="text"
               value={draft}
@@ -258,13 +343,19 @@ function AssistantWidget() {
             >
               →
             </button>
+
           </form>
+
 
           <p className="assistant-disclaimer">
             Quick FAQ assistant · Not live human support
           </p>
+
         </div>
       )}
+
+
+      {/* Assistant Floating Button */}
 
       <button
         type="button"
@@ -280,12 +371,23 @@ function AssistantWidget() {
       >
         {open ? '✕' : '✦'}
       </button>
+
     </div>
   )
 }
 
+
+/* =========================================================
+   MAIN APP
+========================================================= */
+
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
+
+
+  /* =======================================================
+     SCROLL REVEAL ANIMATION
+  ======================================================= */
 
   useEffect(() => {
     const elements =
@@ -295,13 +397,16 @@ function App() {
       new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
+
             if (entry.isIntersecting) {
+
               entry.target.classList.add(
                 'reveal-visible'
               )
 
               observer.unobserve(entry.target)
             }
+
           })
         },
         {
@@ -316,6 +421,11 @@ function App() {
     return () => observer.disconnect()
   }, [])
 
+
+  /* =======================================================
+     SMOOTH SCROLL
+  ======================================================= */
+
   const scrollToSection = (sectionId) => {
     const target =
       document.getElementById(sectionId)
@@ -329,14 +439,19 @@ function App() {
       window.scrollY -
       headerOffset
 
-    const startPosition = window.scrollY
+    const startPosition =
+      window.scrollY
+
     const distance =
       targetPosition - startPosition
 
     const duration = 1220
+
     let startTime = null
 
+
     const animation = (currentTime) => {
+
       if (startTime === null) {
         startTime = currentTime
       }
@@ -349,33 +464,42 @@ function App() {
         1
       )
 
+
       const ease =
         progress < 0.5
+
           ? 2 * progress * progress
+
           : 1 -
             Math.pow(
               -2 * progress + 2,
               2
             ) /
-              2
+            2
+
 
       window.scrollTo(
         0,
         startPosition + distance * ease
       )
 
+
       if (progress < 1) {
         requestAnimationFrame(animation)
       }
+
     }
+
 
     requestAnimationFrame(animation)
   }
+
 
   const handleNavClick = (
     event,
     sectionId
   ) => {
+
     event.preventDefault()
 
     setMenuOpen(false)
@@ -383,13 +507,24 @@ function App() {
     scrollToSection(sectionId)
   }
 
+
   return (
     <>
+
+      {/* =====================================================
+          HEADER / NAVBAR
+      ===================================================== */}
+
       <header>
+
         <nav className="navbar">
+
           <div className="logo">
             K&P Tech Solutions
           </div>
+
+
+          {/* Mobile menu button */}
 
           <button
             type="button"
@@ -403,11 +538,15 @@ function App() {
             {menuOpen ? '✕' : '☰'}
           </button>
 
+
+          {/* Navigation Links */}
+
           <div
             className={`nav-links ${
               menuOpen ? 'nav-open' : ''
             }`}
           >
+
             <a
               href="#home"
               onClick={(event) =>
@@ -416,6 +555,7 @@ function App() {
             >
               Home
             </a>
+
 
             <a
               href="#about"
@@ -426,6 +566,7 @@ function App() {
               About
             </a>
 
+
             <a
               href="#services"
               onClick={(event) =>
@@ -434,14 +575,18 @@ function App() {
             >
               Services
             </a>
+
+
             <a
-  href="#pricing"
-  onClick={(event) =>
-    handleNavClick(event, 'pricing')
-  }
->
-  Pricing
-</a>
+              href="#pricing"
+              onClick={(event) =>
+                handleNavClick(event, 'pricing')
+              }
+            >
+              Pricing
+            </a>
+
+
             <a
               href="#stack"
               onClick={(event) =>
@@ -450,6 +595,7 @@ function App() {
             >
               Stack
             </a>
+
 
             <a
               href="#projects"
@@ -460,6 +606,7 @@ function App() {
               Projects
             </a>
 
+
             <a
               href="#contact"
               onClick={(event) =>
@@ -468,18 +615,30 @@ function App() {
             >
               Contact
             </a>
+
           </div>
+
         </nav>
+
       </header>
+
+
+      {/* =====================================================
+          MAIN WEBSITE
+      ===================================================== */}
 
       <main>
 
-        {/* HERO */}
+
+        {/* ===================================================
+            HERO SECTION
+        =================================================== */}
 
         <section
           id="home"
           className="hero-section"
         >
+
           <div
             className="hero-grid"
             aria-hidden="true"
@@ -495,30 +654,48 @@ function App() {
             aria-hidden="true"
           />
 
+
           <div className="hero-content">
+
+
+            {/* HERO LEFT SIDE */}
+
             <div className="hero-copy">
+
               <p className="hero-tag">
+
                 <span className="hero-status-dot" />
 
                 IT · CLOUD · DEVOPS · DEVSECOPS
+
               </p>
 
+
               <h1>
+
                 Technology that moves
+
                 <span className="hero-gradient-text">
                   {' '}
                   business forward.
                 </span>
+
               </h1>
 
+
               <p className="hero-description">
+
                 We build practical technology
                 solutions for modern businesses —
                 starting with websites and gradually
                 expanding into cloud and automation.
+
               </p>
 
+
               <div className="hero-buttons">
+
+
                 <a
                   href="#contact"
                   className="primary-btn"
@@ -529,9 +706,15 @@ function App() {
                     )
                   }
                 >
+
                   Get started
-                  <span>→</span>
+
+                  <span>
+                    →
+                  </span>
+
                 </a>
+
 
                 <a
                   href="#services"
@@ -545,15 +728,23 @@ function App() {
                 >
                   Explore services
                 </a>
+
               </div>
+
             </div>
+
+
+            {/* HERO RIGHT SIDE */}
 
             <div
               className="hero-visual"
               aria-label="Technology deployment preview"
             >
+
               <div className="terminal-card">
+
                 <div className="terminal-top">
+
                   <div className="terminal-dots">
                     <span />
                     <span />
@@ -563,40 +754,53 @@ function App() {
                   <span className="terminal-title">
                     deployment
                   </span>
+
                 </div>
 
+
                 <div className="terminal-body">
+
                   <p>
                     <span className="terminal-muted">
                       $
                     </span>{' '}
+
                     npm run build
                   </p>
+
 
                   <p className="terminal-success">
                     ✓ React application built
                   </p>
 
+
                   <p>
                     <span className="terminal-muted">
                       $
                     </span>{' '}
+
                     deploy --production
                   </p>
+
 
                   <p className="terminal-info">
                     → preparing deployment...
                   </p>
 
+
                   <p className="terminal-success">
                     ✓ deployment ready
                   </p>
 
+
                   <div className="terminal-progress">
                     <span />
                   </div>
+
                 </div>
+
               </div>
+
 
               <div className="floating-chip floating-chip-react">
                 React
@@ -609,17 +813,23 @@ function App() {
               <div className="floating-chip floating-chip-vite">
                 Vite
               </div>
+
             </div>
+
           </div>
+
         </section>
 
 
-        {/* ABOUT */}
+        {/* ===================================================
+            ABOUT SECTION
+        =================================================== */}
 
         <section
           id="about"
           className="about-section reveal"
         >
+
           <p className="section-label">
             About us
           </p>
@@ -629,22 +839,30 @@ function App() {
           </h2>
 
           <p>
+
             K&P Tech Solutions is being built
             around practical, reliable, and
             understandable technology solutions
             for growing businesses.
+
           </p>
+
         </section>
 
 
-        {/* SERVICES */}
+        {/* ===================================================
+            SERVICES SECTION
+        =================================================== */}
 
         <section
           id="services"
           className="services-section reveal"
         >
+
           <div className="services-heading">
+
             <div>
+
               <p className="section-label">
                 What we do
               </p>
@@ -653,23 +871,35 @@ function App() {
                 Services built around real business
                 needs.
               </h2>
+
             </div>
 
+
             <p className="services-intro">
+
               We start with practical website work
               today, while steadily building deeper
               cloud and automation capability for
               tomorrow.
+
             </p>
+
           </div>
+
 
           <div className="services-bento">
 
-            {/* WEBSITE DEVELOPMENT */}
+
+            {/* ===============================================
+                SERVICE 01 - WEBSITE DEVELOPMENT
+            =============================================== */}
 
             <article className="service-bento-card service-featured">
+
               <div>
+
                 <div className="service-card-top">
+
                   <span className="service-icon">
                     <Code2 size={20} />
                   </span>
@@ -677,25 +907,34 @@ function App() {
                   <span className="service-number">
                     01
                   </span>
+
                 </div>
+
 
                 <p className="service-kicker">
                   CORE SERVICE
                 </p>
 
+
                 <h3>
                   Website Development
                 </h3>
 
+
                 <p>
+
                   Responsive business websites
                   built with clean design,
                   usability, and performance in
                   mind.
+
                 </p>
+
               </div>
 
+
               <div className="service-mini-browser">
+
                 <div className="mini-browser-bar">
                   <span />
                   <span />
@@ -703,19 +942,30 @@ function App() {
                 </div>
 
                 <div className="mini-browser-content">
+
                   <div className="mini-line mini-line-large" />
+
                   <div className="mini-line" />
+
                   <div className="mini-line mini-line-short" />
+
                   <div className="mini-button" />
+
                 </div>
+
               </div>
+
             </article>
 
 
-            {/* DEPLOYMENT */}
+            {/* ===============================================
+                SERVICE 02 - DEPLOYMENT
+            =============================================== */}
 
             <article className="service-bento-card service-small">
+
               <div className="service-card-top">
+
                 <span className="service-icon">
                   <Rocket size={20} />
                 </span>
@@ -723,32 +973,59 @@ function App() {
                 <span className="service-number">
                   02
                 </span>
+
               </div>
+
 
               <h3>
                 Website Deployment
               </h3>
 
+
               <p>
+
                 Practical help getting websites
                 online, including hosting setup and
                 basic deployment.
+
               </p>
 
+
               <div className="deployment-flow">
-                <span>Code</span>
-                <i>→</i>
-                <span>Build</span>
-                <i>→</i>
-                <span>Live</span>
+
+                <span>
+                  Code
+                </span>
+
+                <i>
+                  →
+                </i>
+
+                <span>
+                  Build
+                </span>
+
+                <i>
+                  →
+                </i>
+
+                <span>
+                  Live
+                </span>
+
               </div>
+
             </article>
 
 
-            {/* SUPPORT */}
+            {/* ===============================================
+                SERVICE 03 - SUPPORT
+            =============================================== */}
 
             <article className="service-bento-card service-small">
+
               <div className="service-card-top">
+
                 <span className="service-icon">
                   <Wrench size={20} />
                 </span>
@@ -756,37 +1033,53 @@ function App() {
                 <span className="service-number">
                   03
                 </span>
+
               </div>
+
 
               <h3>
                 Maintenance & Support
               </h3>
 
+
               <p>
+
                 Website updates, content changes,
                 basic fixes, and ongoing
                 maintenance.
+
               </p>
 
+
               <div className="support-status">
+
                 <div>
+
                   <span className="support-dot" />
 
                   Website
+
                 </div>
 
                 <strong>
                   Operational
                 </strong>
+
               </div>
+
             </article>
 
 
-            {/* CLOUD */}
+            {/* ===============================================
+                SERVICE 04 - CLOUD / DEVOPS
+            =============================================== */}
 
             <article className="service-bento-card service-wide">
+
               <div className="service-wide-copy">
+
                 <div className="service-card-top">
+
                   <span className="service-icon">
                     <Cloud size={20} />
                   </span>
@@ -794,32 +1087,44 @@ function App() {
                   <span className="service-number">
                     04
                   </span>
+
                 </div>
+
 
                 <p className="service-kicker">
                   BUILDING CAPABILITY
                 </p>
 
+
                 <h3>
                   Cloud & DevOps
                 </h3>
 
+
                 <p>
+
                   We are actively developing our
                   skills in cloud, automation,
                   containers, and modern deployment
                   workflows.
+
                 </p>
+
               </div>
 
+
               <div className="capability-track">
+
                 <div>
-                  <span>Git</span>
+                  <span>
+                    Git
+                  </span>
 
                   <strong>
                     Working
                   </strong>
                 </div>
+
 
                 <div>
                   <span>
@@ -831,13 +1136,17 @@ function App() {
                   </strong>
                 </div>
 
+
                 <div>
-                  <span>Cloud</span>
+                  <span>
+                    Cloud
+                  </span>
 
                   <strong>
                     Learning
                   </strong>
                 </div>
+
 
                 <div>
                   <span>
@@ -848,146 +1157,317 @@ function App() {
                     Planned
                   </strong>
                 </div>
+
               </div>
+
             </article>
+
           </div>
+
         </section>
-                  <section className="pricing-section" id="pricing">
-  <div className="section-header">
-    <span className="section-tag">PRICING</span>
-    <h2>Simple pricing to get started.</h2>
-    <p>
-      Choose a starting point. Final pricing depends on your business needs,
-      features, pages, and project scope.
-    </p>
-  </div>
 
-  <div className="pricing-grid">
-    <article className="pricing-card">
-      <span className="pricing-label">STARTER</span>
 
-      <h3>Starter Website</h3>
+        {/* ===================================================
+            PRICING SECTION
+        =================================================== */}
 
-      <div className="pricing-price">
-        <span>₹4,999</span>
-        <small>starting from</small>
-      </div>
+        <section
+          className="pricing-section"
+          id="pricing"
+        >
 
-      <p>
-        A clean and professional website for individuals and small businesses
-        getting online.
-      </p>
+          <div className="section-header">
 
-      <ul>
-        <li>Responsive website</li>
-        <li>Essential business sections</li>
-        <li>Contact & WhatsApp integration</li>
-        <li>Basic deployment support</li>
-      </ul>
+            <span className="section-tag">
+              PRICING
+            </span>
 
-      <a
-        href="https://wa.me/919871624457?text=Hi%20K%26P%20Tech%20Solutions%2C%20I%20am%20interested%20in%20the%20Starter%20Website%20package."
-        target="_blank"
-        rel="noreferrer"
-        className="pricing-btn"
-      >
-        Discuss on WhatsApp
-      </a>
-    </article>
+            <h2>
+              Simple pricing to get started.
+            </h2>
 
-    <article className="pricing-card pricing-card-featured">
-      <span className="pricing-label">POPULAR</span>
 
-      <h3>Business Website</h3>
+            <p>
 
-      <div className="pricing-price">
-        <span>₹8,999</span>
-        <small>starting from</small>
-      </div>
+              Choose a starting point. Final pricing depends on your
+              business needs, features, pages, and project scope.
 
-      <p>
-        For businesses that need a stronger online presence and more
-        customization.
-      </p>
+            </p>
 
-      <ul>
-        <li>Custom business-focused design</li>
-        <li>Multiple sections or pages</li>
-        <li>WhatsApp & contact integration</li>
-        <li>Basic SEO setup</li>
-        <li>Deployment support</li>
-      </ul>
+          </div>
 
-      <a
-        href="https://wa.me/919871624457?text=Hi%20K%26P%20Tech%20Solutions%2C%20I%20am%20interested%20in%20the%20Business%20Website%20package."
-        target="_blank"
-        rel="noreferrer"
-        className="pricing-btn"
-      >
-        Discuss Your Project
-      </a>
-    </article>
 
-    <article className="pricing-card">
-      <span className="pricing-label">CUSTOM</span>
+          <div className="pricing-grid">
 
-      <h3>Business Plus</h3>
 
-      <div className="pricing-price">
-        <span>₹14,999+</span>
-        <small>custom scope</small>
-      </div>
+            {/* ===============================================
+                STARTER WEBSITE
+            =============================================== */}
 
-      <p>
-        For businesses requiring more pages, customization, integrations, or
-        advanced website features.
-      </p>
+            <article className="pricing-card">
 
-      <ul>
-        <li>Custom project structure</li>
-        <li>Advanced UI requirements</li>
-        <li>Additional pages & features</li>
-        <li>Custom deployment requirements</li>
-      </ul>
+              <span className="pricing-label">
+                STARTER
+              </span>
 
-      <a
-        href="https://wa.me/919871624457?text=Hi%20K%26P%20Tech%20Solutions%2C%20I%20would%20like%20to%20discuss%20a%20custom%20website%20project."
-        target="_blank"
-        rel="noreferrer"
-        className="pricing-btn"
-      >
-        Request a Discussion
-      </a>
-    </article>
-  </div>
+              <h3>
+                Starter Website
+              </h3>
 
-  <div className="pricing-note">
-    <strong>Need something different?</strong>
-    <p>
-      Every business is different. Detailed requirements, timelines, and final
-      quotation are discussed privately over WhatsApp, call, or an online
-      meeting.
-    </p>
-  </div>
 
-  <div className="pricing-addons">
-    <span>Deployment support from ₹999</span>
-    <span>Website maintenance from ₹999/month</span>
-  </div>
+              <div className="pricing-price">
 
-  <p className="pricing-disclaimer">
-    Launch pricing. Final cost may vary depending on project scope and
-    requirements. Domain, hosting, and paid third-party services are charged
-    separately where applicable.
-  </p>
-</section>
+                <span>
+                  ₹4,999
+                </span>
 
-        {/* STACK */}
+                <small>
+                  starting from
+                </small>
+
+              </div>
+
+
+              <p>
+
+                A clean and professional website for individuals and
+                small businesses getting online.
+
+              </p>
+
+
+              <ul>
+
+                <li>
+                  Responsive website
+                </li>
+
+                <li>
+                  Essential business sections
+                </li>
+
+                <li>
+                  Contact & WhatsApp integration
+                </li>
+
+                <li>
+                  Basic deployment support
+                </li>
+
+              </ul>
+
+
+              <a
+                href="https://wa.me/919871624457?text=Hi%20K%26P%20Tech%20Solutions%2C%20I%20am%20interested%20in%20the%20Starter%20Website%20package."
+                target="_blank"
+                rel="noreferrer"
+                className="pricing-btn"
+              >
+                Discuss on WhatsApp
+              </a>
+
+            </article>
+
+
+            {/* ===============================================
+                BUSINESS WEBSITE
+            =============================================== */}
+
+            <article className="pricing-card pricing-card-featured">
+
+              <span className="pricing-label">
+                POPULAR
+              </span>
+
+              <h3>
+                Business Website
+              </h3>
+
+
+              <div className="pricing-price">
+
+                <span>
+                  ₹8,999
+                </span>
+
+                <small>
+                  starting from
+                </small>
+
+              </div>
+
+
+              <p>
+
+                For businesses that need a stronger online presence and
+                more customization.
+
+              </p>
+
+
+              <ul>
+
+                <li>
+                  Custom business-focused design
+                </li>
+
+                <li>
+                  Multiple sections or pages
+                </li>
+
+                <li>
+                  WhatsApp & contact integration
+                </li>
+
+                <li>
+                  Basic SEO setup
+                </li>
+
+                <li>
+                  Deployment support
+                </li>
+
+              </ul>
+
+
+              <a
+                href="https://wa.me/919871624457?text=Hi%20K%26P%20Tech%20Solutions%2C%20I%20am%20interested%20in%20the%20Business%20Website%20package."
+                target="_blank"
+                rel="noreferrer"
+                className="pricing-btn"
+              >
+                Discuss Your Project
+              </a>
+
+            </article>
+
+
+            {/* ===============================================
+                BUSINESS PLUS
+            =============================================== */}
+
+            <article className="pricing-card">
+
+              <span className="pricing-label">
+                CUSTOM
+              </span>
+
+              <h3>
+                Business Plus
+              </h3>
+
+
+              <div className="pricing-price">
+
+                <span>
+                  ₹14,999+
+                </span>
+
+                <small>
+                  custom scope
+                </small>
+
+              </div>
+
+
+              <p>
+
+                For businesses requiring more pages, customization,
+                integrations, or advanced website features.
+
+              </p>
+
+
+              <ul>
+
+                <li>
+                  Custom project structure
+                </li>
+
+                <li>
+                  Advanced UI requirements
+                </li>
+
+                <li>
+                  Additional pages & features
+                </li>
+
+                <li>
+                  Custom deployment requirements
+                </li>
+
+              </ul>
+
+
+              <a
+                href="https://wa.me/919871624457?text=Hi%20K%26P%20Tech%20Solutions%2C%20I%20would%20like%20to%20discuss%20a%20custom%20website%20project."
+                target="_blank"
+                rel="noreferrer"
+                className="pricing-btn"
+              >
+                Request a Discussion
+              </a>
+
+            </article>
+
+          </div>
+
+
+          {/* Pricing note */}
+
+          <div className="pricing-note">
+
+            <strong>
+              Need something different?
+            </strong>
+
+            <p>
+
+              Every business is different. Detailed requirements,
+              timelines, and final quotation are discussed privately
+              over WhatsApp, call, or an online meeting.
+
+            </p>
+
+          </div>
+
+
+          {/* Pricing Add-ons */}
+
+          <div className="pricing-addons">
+
+            <span>
+              Deployment support from ₹999
+            </span>
+
+            <span>
+              Website maintenance from ₹999/month
+            </span>
+
+          </div>
+
+
+          <p className="pricing-disclaimer">
+
+            Launch pricing. Final cost may vary depending on project
+            scope and requirements. Domain, hosting, and paid
+            third-party services are charged separately where
+            applicable.
+
+          </p>
+
+        </section>
+
+
+        {/* ===================================================
+            TECHNOLOGY STACK
+        =================================================== */}
 
         <section
           id="stack"
           className="stack-section reveal"
         >
+
           <p className="section-label">
             Tooling
           </p>
@@ -997,37 +1477,54 @@ function App() {
           </h2>
 
           <p className="stack-intro">
+
             Our current workflow is focused on
             practical frontend development,
             version control, and modern development
             tooling.
+
           </p>
 
+
           <div className="stack-marquee">
+
             <div className="stack-track">
+
               {[...stack, ...stack].map(
                 (tool, index) => (
+
                   <span
                     className="stack-chip"
                     key={`${tool}-${index}`}
                   >
+
                     <span className="stack-dot" />
 
                     {tool}
+
                   </span>
+
                 )
               )}
+
             </div>
+
           </div>
+
         </section>
 
 
-        {/* PROJECTS */}
+        {/* ===================================================
+            PROJECTS SECTION
+        =================================================== */}
 
         <section
           id="projects"
           className="projects-section reveal"
         >
+
+          {/* PROJECTS HEADING */}
+
           <p className="section-label">
             Our work
           </p>
@@ -1037,16 +1534,36 @@ function App() {
           </h2>
 
           <p className="projects-intro">
+
             Real demo projects and proof-of-work
             built as we grow our technical
             capabilities.
+
           </p>
 
+
+          {/* =================================================
+              IMPORTANT:
+              BOTH PROJECTS ARE INSIDE SAME PROJECTS GRID
+          ================================================= */}
+
           <div className="projects-grid">
+
+
+            {/* ===============================================
+                PROJECT 01
+                K&P TECH SOLUTIONS WEBSITE
+            =============================================== */}
+
             <article className="project-showcase-card">
 
+
+              {/* PROJECT 01 PREVIEW */}
+
               <div className="project-preview">
+
                 <div className="project-browser-bar">
+
                   <div className="project-browser-dots">
                     <span />
                     <span />
@@ -1056,10 +1573,17 @@ function App() {
                   <span>
                     kptechsolutions.local
                   </span>
+
                 </div>
 
+
                 <div className="project-preview-body">
+
+
+                  {/* Fake Navbar */}
+
                   <div className="preview-navbar">
+
                     <strong>
                       K&P
                     </strong>
@@ -1069,10 +1593,16 @@ function App() {
                       <span />
                       <span />
                     </div>
+
                   </div>
 
+
+                  {/* Fake Hero */}
+
                   <div className="preview-hero">
+
                     <div>
+
                       <span className="preview-small-line" />
 
                       <span className="preview-title-line" />
@@ -1081,11 +1611,16 @@ function App() {
 
                       <span className="preview-text-line" />
 
+
                       <div className="preview-buttons">
                         <span />
                         <span />
                       </div>
+
                     </div>
+
+
+                    {/* Fake Terminal */}
 
                     <div className="preview-terminal">
                       <span />
@@ -1093,12 +1628,20 @@ function App() {
                       <span />
                       <span />
                     </div>
+
                   </div>
+
                 </div>
+
               </div>
 
+
+              {/* PROJECT 01 DETAILS */}
+
               <div className="project-details">
+
                 <div className="project-details-top">
+
                   <span className="project-status">
                     In Progress
                   </span>
@@ -1106,19 +1649,26 @@ function App() {
                   <span className="project-number">
                     01
                   </span>
+
                 </div>
+
 
                 <h3>
                   K&P Tech Solutions Company Website
                 </h3>
 
+
                 <p>
+
                   Responsive React website being
                   built as the digital foundation
                   for K&P Tech Solutions.
+
                 </p>
 
+
                 <div className="project-tags">
+
                   <span className="project-tag">
                     React
                   </span>
@@ -1130,216 +1680,365 @@ function App() {
                   <span className="project-tag">
                     Responsive Design
                   </span>
+
                 </div>
+
               </div>
+
             </article>
+
+
+            {/* ===============================================
+                PROJECT 02
+                IRONCORE FITNESS STUDIO
+            =============================================== */}
+
+            <article className="project-showcase-card project-showcase-ironcore">
+
+
+              {/* PROJECT 02 PREVIEW */}
+
+              <div className="project-preview ironcore-preview">
+
+
+                {/* Browser Bar */}
+
+                <div className="project-browser-bar">
+
+                  <div className="project-browser-dots">
+                    <span />
+                    <span />
+                    <span />
+                  </div>
+
+                  <span>
+                    iron-core-fitness-studio-demo.vercel.app
+                  </span>
+
+                </div>
+
+
+                <div className="ironcore-preview-body">
+
+
+                  {/* Mini Navigation */}
+
+                  <div className="ironcore-mini-nav">
+
+                    <strong>
+                      IRON
+                      <span>
+                        CORE
+                      </span>
+                    </strong>
+
+
+                    <div className="ironcore-mini-menu">
+                      <i />
+                      <i />
+                      <i />
+                    </div>
+
+                  </div>
+
+
+                  {/* Mini Hero */}
+
+                  <div className="ironcore-mini-hero">
+
+
+                    {/* Left Side */}
+
+                    <div className="ironcore-mini-copy">
+
+                      <span className="ironcore-mini-badge">
+                        FITNESS STUDIO
+                      </span>
+
+
+                      <div className="ironcore-heading-line line-one" />
+
+                      <div className="ironcore-heading-line line-two" />
+
+                      <div className="ironcore-heading-line line-green" />
+
+
+                      <div className="ironcore-copy-line" />
+
+                      <div className="ironcore-copy-line short" />
+
+
+                      <div className="ironcore-mini-actions">
+                        <span />
+                        <span />
+                      </div>
+
+                    </div>
+
+
+                    {/* Right Side */}
+
+                    <div className="ironcore-mini-visual">
+
+                      <div className="ironcore-glow" />
+
+
+                      {/* IronCore Logo */}
+
+                      <div className="ironcore-logo-mark">
+
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 64 64"
+                          className="ironcore-logo-svg"
+                        >
+
+                          <rect
+                            width="64"
+                            height="64"
+                            rx="14"
+                            fill="#050505"
+                          />
+
+
+                          <circle
+                            cx="32"
+                            cy="32"
+                            r="24"
+                            fill="none"
+                            stroke="#39ff14"
+                            strokeWidth="3"
+                          />
+
+
+                          <text
+                            x="32"
+                            y="39"
+                            textAnchor="middle"
+                            fontFamily="Arial, sans-serif"
+                            fontSize="22"
+                            fontWeight="900"
+                            fill="#39ff14"
+                          >
+                            IC
+                          </text>
+
+                        </svg>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+
+                  {/* Mini Stats */}
+
+                  <div className="ironcore-mini-stats">
+
+                    <div>
+                      <strong>
+                        04
+                      </strong>
+
+                      <span>
+                        Programs
+                      </span>
+                    </div>
+
+
+                    <div>
+                      <strong>
+                        03
+                      </strong>
+
+                      <span>
+                        Plans
+                      </span>
+                    </div>
+
+
+                    <div>
+                      <strong>
+                        02
+                      </strong>
+
+                      <span>
+                        Sessions
+                      </span>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              {/* PROJECT 02 DETAILS */}
+
+              <div className="project-details">
+
+
+                <div className="project-details-top">
+
+                  <span className="project-status">
+                    Concept Demo
+                  </span>
+
+                  <span className="project-number">
+                    02
+                  </span>
+
+                </div>
+
+
+                <h3>
+                  IronCore Fitness Studio
+                </h3>
+
+
+                <p>
+
+                  A premium fitness studio concept website built with
+                  React and Vite, featuring responsive design,
+                  interactive sections, BMI calculator, FAQ,
+                  form validation, animations, and optimized
+                  performance.
+
+                </p>
+
+
+                {/* Project Technology Tags */}
+
+                <div className="project-tags">
+
+                  <span className="project-tag">
+                    React
+                  </span>
+
+                  <span className="project-tag">
+                    Vite
+                  </span>
+
+                  <span className="project-tag">
+                    JavaScript
+                  </span>
+
+                  <span className="project-tag">
+                    Responsive Design
+                  </span>
+
+                </div>
+
+
+                {/* Project Links */}
+
+                <div className="project-links">
+
+
+                  {/* Live Website */}
+
+                  <a
+                    href="https://iron-core-fitness-studio-demo.vercel.app/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="project-live-link"
+                  >
+
+                    View Live Demo
+
+                    <span>
+                      ↗
+                    </span>
+
+                  </a>
+
+
+                  {/* GitHub */}
+
+                  <a
+                    href="https://github.com/SkylimitYc/IronCore_Fitness_Studio_Demo"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="project-code-link"
+                  >
+                    View Code
+                  </a>
+
+                </div>
+
+              </div>
+
+            </article>
+
+
           </div>
-          <article className="project-showcase-card project-showcase-ironcore">
+          {/* ================= PROJECTS GRID END ================= */}
 
-  <div className="project-preview ironcore-preview">
-
-    <div className="project-browser-bar">
-      <div className="project-browser-dots">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-
-      <span>
-        iron-core-fitness-studio-demo.vercel.app
-      </span>
-    </div>
-
-    <div className="ironcore-preview-body">
-
-      <div className="ironcore-mini-nav">
-        <strong>
-          IRON<span>CORE</span>
-        </strong>
-
-        <div className="ironcore-mini-menu">
-          <i></i>
-          <i></i>
-          <i></i>
-        </div>
-      </div>
-
-      <div className="ironcore-mini-hero">
-
-        <div className="ironcore-mini-copy">
-          <span className="ironcore-mini-badge">
-            FITNESS STUDIO
-          </span>
-
-          <div className="ironcore-heading-line line-one"></div>
-          <div className="ironcore-heading-line line-two"></div>
-          <div className="ironcore-heading-line line-green"></div>
-
-          <div className="ironcore-copy-line"></div>
-          <div className="ironcore-copy-line short"></div>
-
-          <div className="ironcore-mini-actions">
-            <span></span>
-            <span></span>
-          </div>
-        </div>
-
-        <div className="ironcore-mini-visual">
-          <div className="ironcore-glow"></div>
-
-          <div className="ironcore-logo-mark">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 64 64"
-              className="ironcore-logo-svg"
-            >
-              <rect
-                width="64"
-                height="64"
-                rx="14"
-                fill="#050505"
-              />
-
-              <circle
-                cx="32"
-                cy="32"
-                r="24"
-                fill="none"
-                stroke="#39ff14"
-                strokeWidth="3"
-              />
-
-              <text
-                x="32"
-                y="39"
-                textAnchor="middle"
-                fontFamily="Arial, sans-serif"
-                fontSize="22"
-                fontWeight="900"
-                fill="#39ff14"
-              >
-                IC
-              </text>
-            </svg>
-          </div>
-        </div>
-
-      </div>
-
-      <div className="ironcore-mini-stats">
-        <div>
-          <strong>04</strong>
-          <span>Programs</span>
-        </div>
-
-        <div>
-          <strong>03</strong>
-          <span>Plans</span>
-        </div>
-
-        <div>
-          <strong>02</strong>
-          <span>Sessions</span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <div className="project-details">
-
-    <div className="project-details-top">
-      <span className="project-status">
-        Concept Demo
-      </span>
-
-      <span className="project-number">
-        02
-      </span>
-    </div>
-
-    <h3>
-      IronCore Fitness Studio
-    </h3>
-
-    <p>
-      A premium fitness studio concept website built with React and Vite,
-      featuring responsive design, interactive sections, BMI calculator,
-      FAQ, form validation, animations, and optimized performance.
-    </p>
-
-    <div className="project-tags">
-      <span className="project-tag">React</span>
-      <span className="project-tag">Vite</span>
-      <span className="project-tag">JavaScript</span>
-      <span className="project-tag">Responsive Design</span>
-    </div>
-
-    <div className="project-links">
-
-      <a
-        href="https://iron-core-fitness-studio-demo.vercel.app/"
-        target="_blank"
-        rel="noreferrer"
-        className="project-live-link"
-      >
-        View Live Demo
-        <span>↗</span>
-      </a>
-
-      <a
-        href="https://github.com/SkylimitYc/IronCore_Fitness_Studio_Demo"
-        target="_blank"
-        rel="noreferrer"
-        className="project-code-link"
-      >
-        View Code
-      </a>
-
-    </div>
-
-  </div>
-
-</article>
         </section>
 
 
-        {/* CONTACT */}
+        {/* ===================================================
+            CONTACT SECTION
+        =================================================== */}
 
         <section
           id="contact"
           className="contact-section reveal"
         >
+
           <p className="section-label">
             Contact
           </p>
+
 
           <h2>
             Let&apos;s build something useful
           </h2>
 
+
           <p className="contact-intro">
+
             Have a website or technology
             requirement? Get in touch with K&P
             Tech Solutions.
+
           </p>
 
+
           <div className="contact-actions">
+
+
+            {/* Email */}
+
             <a
               href="mailto:kptechsolution2026@gmail.com"
               className="primary-btn"
             >
+
               <Mail size={17} />
+
               Email us
+
             </a>
+
+
+            {/* Phone */}
 
             <a
               href="tel:+919871624457"
               className="secondary-btn"
             >
+
               <Phone size={17} />
+
               Call us
+
             </a>
+
+
+            {/* WhatsApp */}
 
             <a
               href="https://wa.me/919871624457"
@@ -1347,27 +2046,42 @@ function App() {
               rel="noreferrer"
               className="secondary-btn"
             >
+
               <MessageCircle size={17} />
+
               WhatsApp
+
             </a>
+
           </div>
+
         </section>
+
       </main>
 
 
-      {/* FOOTER */}
+      {/* =====================================================
+          FOOTER
+      ===================================================== */}
 
       <footer className="site-footer">
+
         <p>
+
           © {new Date().getFullYear()}{' '}
           K&P Tech Solutions. All rights reserved.
+
         </p>
+
       </footer>
 
 
-      {/* FAQ ASSISTANT */}
+      {/* =====================================================
+          FAQ ASSISTANT
+      ===================================================== */}
 
       <AssistantWidget />
+
     </>
   )
 }

@@ -907,7 +907,7 @@ main section {
 
 .projects-grid {
   display: grid;
-  gap: 24px;
+  gap: 48px;
 }
 
 .project-showcase-card {
@@ -1895,7 +1895,7 @@ main section {
 
   .service-featured {
     gap: 30px;
-  }
+  } 
 
   .service-wide {
     gap: 30px;
@@ -2396,7 +2396,7 @@ main section {
 
 /* IronCore project card ko styling (pehle unstyled tha) */
 .project-card {
-  margin-top: 24px;
+  margin-top: 48px;
   overflow: hidden;
   border: 1px solid var(--border);
   border-radius: 24px;
