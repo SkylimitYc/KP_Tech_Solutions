@@ -109,6 +109,8 @@ function findAnswer(input) {
 ========================================================= */
 
 function AssistantWidget() {
+  const maxInputLength = 500
+  const maxMessages = 50
   const [open, setOpen] = useState(false)
   const [draft, setDraft] = useState('')
   const [typing, setTyping] = useState(false)
@@ -121,6 +123,8 @@ function AssistantWidget() {
   ])
 
   const scrollRef = useRef(null)
+  const replyTimerRef = useRef(null)
+  const pendingQuestionsRef = useRef([])
 
   const quickQuestions = [
     'What services do you offer?',
@@ -138,33 +142,40 @@ function AssistantWidget() {
     }
   }, [messages, typing, open])
 
+  useEffect(() => () => {
+    window.clearTimeout(replyTimerRef.current)
+  }, [])
+
 
   /* Process chatbot message */
 
   const processMessage = (text) => {
+    const boundedText = text.slice(0, maxInputLength)
     const userMessage = {
       from: 'user',
-      text,
+      text: boundedText,
     }
 
     setMessages((previous) => [
       ...previous,
       userMessage,
-    ])
+    ].slice(-maxMessages))
 
+    pendingQuestionsRef.current.push(boundedText)
+    window.clearTimeout(replyTimerRef.current)
     setTyping(true)
 
-    setTimeout(() => {
-      const botMessage = {
+    replyTimerRef.current = window.setTimeout(() => {
+      const replies = pendingQuestionsRef.current.map((question) => ({
         from: 'bot',
-        text: findAnswer(text),
-      }
+        text: findAnswer(question),
+      }))
+      pendingQuestionsRef.current = []
 
       setMessages((previous) => [
         ...previous,
-        botMessage,
-      ])
-
+        ...replies,
+      ].slice(-maxMessages))
       setTyping(false)
     }, 650)
   }
@@ -242,6 +253,10 @@ function AssistantWidget() {
           <div
             className="assistant-body"
             ref={scrollRef}
+            role="log"
+            aria-label="Assistant conversation"
+            aria-live="polite"
+            aria-relevant="additions"
           >
 
             {messages.map((message, index) => (
@@ -334,6 +349,7 @@ function AssistantWidget() {
               }
               placeholder="Ask a question..."
               aria-label="Message"
+              maxLength={maxInputLength}
             />
 
             <button
@@ -393,6 +409,13 @@ function App() {
     const elements =
       document.querySelectorAll('.reveal')
 
+    if (typeof window.IntersectionObserver !== 'function') {
+      elements.forEach((element) => {
+        element.classList.add('reveal-visible')
+      })
+      return
+    }
+
     const observer =
       new IntersectionObserver(
         (entries) => {
@@ -438,6 +461,11 @@ function App() {
       target.getBoundingClientRect().top +
       window.scrollY -
       headerOffset
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      window.scrollTo(0, targetPosition)
+      return
+    }
 
     const startPosition =
       window.scrollY

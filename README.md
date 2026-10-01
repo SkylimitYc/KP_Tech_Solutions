@@ -62,3 +62,16 @@ To run the project locally:
 
 ```bash
 npm install
+npm run dev
+```
+
+Vite prints the local development URL in the terminal (usually `http://localhost:5173`).
+
+Available npm scripts:
+
+```bash
+npm run dev      # Start the Vite development server
+npm run lint     # Run Oxlint
+npm run build    # Create a production build in dist/
+npm run preview  # Preview the production build locally (run build first)
+```

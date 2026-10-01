@@ -60,6 +60,11 @@ a {
   text-decoration: none;
 }
 
+:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 3px;
+}
+
 button,
 input {
   font-family: inherit;
@@ -1486,6 +1491,11 @@ main section {
   background: transparent;
   color: var(--text);
   font-size: 0.83rem;
+}
+
+.assistant-input-row input:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 2px;
 }
 
 .assistant-input-row input::placeholder {
